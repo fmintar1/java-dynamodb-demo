@@ -32,7 +32,7 @@ public class EmployeeRepository {
         return "Employee " + emp + " deleted!";
     }
 
-    public String update(String employeeID, Employee employee) {
+    public Employee update(String employeeID, Employee employee) {
         try{
         dynamoDBMapper.save(employee,
             new DynamoDBSaveExpression()
@@ -48,7 +48,7 @@ public class EmployeeRepository {
             e.printStackTrace();
         }
 
-        return employeeID;
+        return employee;
     }
     
 }

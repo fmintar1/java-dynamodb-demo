@@ -35,6 +35,6 @@ public class EmployeeController {
 
     @PutMapping("/employee/{id}")
     public String updateEmployee(@PathVariable("id") String employeeID, @RequestBody Employee employee) {
-        return employeeRepository.update(employeeID, employee);
+        return employeeRepository.update(employeeID, employee).toString();
     }
 }
