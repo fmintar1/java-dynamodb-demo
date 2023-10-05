@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -28,11 +29,7 @@ public class DynamoDBConfiguration {
             )
         )
         .withCredentials(
-            new AWSStaticCredentialsProvider(
-                new BasicAWSCredentials(
-                    "AKIAYCKI2IXVF27MEIDM", 
-                    "Oi8wcLbaxLiO6EaZgSSgsPs0VNa5vcOole9Hn1FV")
-            )
+            DefaultAWSCredentialsProviderChain.getInstance()
         ).build();
     }
 

@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMappingException;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
+import com.amazonaws.services.dynamodbv2.model.AmazonDynamoDBException;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
 import com.dailycodebuffer.DynamoDBSpringBootDemo.entity.Employee;
@@ -31,12 +33,21 @@ public class EmployeeRepository {
     }
 
     public String update(String employeeID, Employee employee) {
+        try{
         dynamoDBMapper.save(employee,
             new DynamoDBSaveExpression()
-            .withExpectedEntry("EmployeeID",
+            .withExpectedEntry("employeeID",
             new ExpectedAttributeValue(
                 new AttributeValue().withS(employeeID)
             )));
+        }
+        catch(AmazonDynamoDBException | DynamoDBMappingException e) {
+            e.printStackTrace();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
         return employeeID;
     }
     
